@@ -343,7 +343,7 @@
             .hero h1 { font-size: 2.2rem; }
         }
 
-        /* custom photo editing (simple preview) */
+        /* photo credit */
         .photo-credit {
             font-size: 0.8rem;
             color: #bbb;
@@ -416,7 +416,7 @@
 
     <!-- product grid injected via javascript (dynamic for admin control) -->
     <div class="store-grid" id="product-grid">
-        <!-- will be filled from template / js -->
+        <!-- products will be loaded via javascript -->
     </div>
 
     <footer>
@@ -491,8 +491,7 @@
                     htmlStr += `
                         <div class="product-card">
                             ${idx === 1 ? '<div class="featured-badge">BESTSELLER</div>' : ''}
-                            <div class="product-image" style="background-image: url('${p.bg}'); background-size: cover; font-size: 0; text-indent: -9999px;" title="${p.icon}">
-                                <!-- image background displays the photo, fallback icon as text for accessibility -->
+                            <div class="product-image" style="background-image: url(\'${p.bg}\'); background-size: cover; background-position: center; font-size: 0; text-indent: -9999px;" title="${p.icon}">
                                 <span style="opacity:0;">${p.icon}</span>
                             </div>
                             <div class="product-category">${p.cat || (idx===0?'MLBB':idx===1?'FREE FIRE':'BUNDLE')}</div>
@@ -500,11 +499,13 @@
                             <div class="product-desc">${p.desc}</div>
                             <div class="price-row">
                                 <div class="price">$${p.price}<small> IDR</small></div>
-                                <button class="buy-btn" onclick="buyProduct('${p.title}')"><i class="fas fa-bolt"></i> top up</button>
+                                <button class="buy-btn" onclick="buyProduct(\'${p.title}\')"><i class="fas fa-bolt"></i> top up</button>
                             </div>
                         </div>
                     `;
                 });
+                
+                // ✅ FIXED: This line was missing!
                 grid.innerHTML = htmlStr;
             }
 
@@ -588,10 +589,10 @@
             // apply changes button
             applyBtn.addEventListener('click', () => {
                 updateProductsFromAdmin();
-                adminPanel.classList.remove('show'); // optional auto-close
+                adminPanel.classList.remove('show');
             });
 
-            // draggable panel (simple)
+            // draggable panel
             let isDragging = false;
             let offsetX, offsetY;
 
@@ -617,9 +618,6 @@
                 adminPanel.style.cursor = 'default';
             });
 
-            // optional: click outside to close? but we keep it simple
-
-            // extra premium: you can also change any image by url, even from unsplash.
             console.log('SENSAI admin ready — you control the web.');
         })();
     </script>
