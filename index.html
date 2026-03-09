@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SENSAISTOREMLBB · premium game top-up</title><meta name="google-site-verification" content="IseFclLKLeiSgxDkQmAKWowQtNcYDMYA449I79puyyc" />
-    <!-- Font Awesome 6 (free) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>SENSAISTOREMLBB · ELITE</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -15,611 +15,563 @@
         }
 
         body {
-            background: #f5f7fb;
-            color: #1d1d1f;
-            line-height: 1.5;
+            background: #ffffff;
+            color: #000000;
+            overflow-x: hidden;
         }
 
-        /* premium admin toggle – hidden gem */
-        #admin-toggle {
+        /* ===== ENTRY ANIMATION - FIXED ===== */
+        .entry-screen {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 56px;
-            height: 56px;
-            border-radius: 30px;
-            background: #1d1d1f;
-            color: white;
-            border: 2px solid #3a3a3c;
-            box-shadow: 0 10px 30px -8px rgba(0,0,0,0.3);
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #000000;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.25s ease;
-            backdrop-filter: blur(4px);
+            z-index: 1000;
+            animation: slideUp 1.8s cubic-bezier(0.77, 0, 0.18, 1) forwards;
+            animation-delay: 1.5s;
+            padding: 0 10px;
         }
-        #admin-toggle:hover {
-            background: #2d2d2f;
-            transform: scale(1.05);
-            border-color: #eab308;
+
+        .entry-text {
+            font-size: clamp(2rem, 8vw, 5rem);
+            font-weight: 900;
+            letter-spacing: 4px;
+            color: white;
+            text-transform: uppercase;
+            transform: scale(1);
+            animation: textPop 1.2s ease-out forwards;
+            text-align: center;
+            width: 100%;
+            word-break: break-word;
+            white-space: normal;
+            line-height: 1.2;
         }
-        /* admin panel — draggable, premium overlay */
+
+        @keyframes textPop {
+            0% { transform: scale(0.3); opacity: 0; letter-spacing: 10px; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); letter-spacing: 4px; }
+        }
+
+        @keyframes slideUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 2.8s forwards;
+            background: white;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* premium navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 200;
+            letter-spacing: 4px;
+            color: #000;
+        }
+        .logo span {
+            font-weight: 700;
+            color: #000;
+            background: #f0f0f0;
+            padding: 0.2rem 1rem;
+            margin-left: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* hero section */
+        .hero {
+            padding: 4rem 3rem 2rem;
+        }
+        .hero h2 {
+            font-size: 2.5rem;
+            font-weight: 200;
+            letter-spacing: -0.5px;
+        }
+        .hero h2 strong {
+            font-weight: 700;
+            background: #000;
+            color: white;
+            padding: 0.2rem 1rem;
+        }
+
+        /* ===== HORIZONTAL SCROLL SECTION ===== */
+        .horizontal-section {
+            margin: 3rem 0;
+            padding-left: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            letter-spacing: 4px;
+        }
+
+        .scroll-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            padding: 1rem 0 2rem;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #000 #eee;
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            height: 4px;
+        }
+        .scroll-container::-webkit-scrollbar-track {
+            background: #eee;
+        }
+        .scroll-container::-webkit-scrollbar-thumb {
+            background: #000;
+        }
+
+        .card-row {
+            display: inline-flex;
+            gap: 1.5rem;
+            padding-right: 3rem;
+        }
+
+        /* product cards */
+        .product-card {
+            width: 280px;
+            background: white;
+            border: 1px solid #f0f0f0;
+            display: inline-block;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: black;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.1);
+            border-color: #000;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 280px;
+            background: #f5f5f5;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-info {
+            padding: 1.5rem;
+        }
+
+        .card-category {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 2px;
+        }
+
+        .card-name {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 0.5rem 0;
+        }
+
+        .card-price {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .buy-button {
+            background: black;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            width: 100%;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: 0.2s;
+        }
+
+        .buy-button:hover {
+            background: #333;
+        }
+
+        /* ===== VERTICAL SCROLL SECTION ===== */
+        .vertical-section {
+            margin: 4rem 3rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            border: 1px solid #eee;
+            padding: 2rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #000;
+            color: white;
+            padding: 3rem;
+            margin-top: 4rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* ===== ADMIN PANEL (HIDDEN) ===== */
+        .admin-trigger {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: 1px solid rgba(0,0,0,0.1);
+            color: rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            font-size: 0.7rem;
+        }
+
         .admin-panel {
             position: fixed;
-            top: 15%;
-            right: 30px;
-            width: 340px;
-            background: rgba(22, 22, 24, 0.95);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 32px;
-            padding: 1.8rem 1.5rem;
-            color: #f0f0f2;
-            box-shadow: 0 30px 50px -20px black;
-            z-index: 1000;
-            transition: 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+            top: 10%;
+            right: 20px;
+            width: 320px;
+            background: white;
+            border: 1px solid black;
+            padding: 2rem;
+            z-index: 2000;
             display: none;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
+
         .admin-panel.show {
             display: block;
         }
+
         .admin-panel h3 {
-            font-weight: 500;
-            letter-spacing: -0.02em;
-            font-size: 1.6rem;
-            margin-bottom: 0.4rem;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
         }
-        .admin-panel h3 i {
-            color: #eab308;
-            font-size: 1.8rem;
+
+        .admin-field {
+            margin-bottom: 1rem;
         }
-        .admin-panel .drag-handle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: #888;
-            cursor: move;
-            font-size: 1.2rem;
-            background: rgba(255,255,255,0.05);
-            padding: 6px 10px;
-            border-radius: 40px;
-        }
-        .admin-section {
-            margin: 24px 0 16px;
-        }
-        .admin-section label {
-            display: block;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: #aaa;
-            margin-bottom: 6px;
-        }
-        .admin-section input, .admin-section textarea {
+
+        .admin-field input {
             width: 100%;
-            background: rgba(255,255,255,0.07);
-            border: 1px solid #3a3a3c;
-            border-radius: 18px;
-            padding: 12px 16px;
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+        }
+
+        .admin-btn {
+            background: black;
             color: white;
-            font-size: 0.95rem;
-            margin-bottom: 14px;
-            transition: 0.15s;
-        }
-        .admin-section input:focus, .admin-section textarea:focus {
-            outline: none;
-            border-color: #eab308;
-            background: rgba(255,255,255,0.1);
-        }
-        .admin-section button {
-            background: #eab308;
             border: none;
-            color: #1d1d1f;
-            font-weight: 600;
-            padding: 12px 24px;
-            border-radius: 40px;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: 0.15s;
+            padding: 0.8rem;
             width: 100%;
-            margin-top: 6px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .admin-section button:hover {
-            background: #f5c31e;
-            transform: scale(0.98);
-        }
-        .admin-close {
-            background: transparent;
-            border: 1px solid #444;
-            color: #ddd;
-            margin-top: 12px;
-            border-radius: 40px;
-            padding: 10px;
-            font-size: 0.9rem;
-            width: 100%;
+            margin: 0.3rem 0;
             cursor: pointer;
-        }
-        .admin-close:hover {
-            background: #2a2a2c;
-        }
-
-        /* main store – ultra premium, like nike / puma / zara / gucci minimalism */
-        .top-bar {
-            background: white;
-            padding: 1.2rem 5%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(0,0,0,0.03);
-            box-shadow: 0 6px 18px -12px rgba(0,0,0,0.08);
-        }
-        .logo {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            background: linear-gradient(140deg, #1d1d1f 20%, #515154);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .logo span {
-            background: #eab308;
-            color: black;
-            padding: 0 6px;
-            border-radius: 16px;
-            font-size: 0.9rem;
-            margin-left: 6px;
-            -webkit-text-fill-color: black;
-            background-clip: unset;
-        }
-        .nav-icons {
-            display: flex;
-            gap: 1.8rem;
-            color: #2d2d2f;
-            font-size: 1.3rem;
-        }
-
-        .hero {
-            background: white;
-            margin: 2rem 5% 1rem;
-            padding: 3rem 3rem;
-            border-radius: 42px;
-            box-shadow: 0 20px 40px -20px rgba(0,0,0,0.2);
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .hero h1 {
-            font-size: 3.2rem;
-            font-weight: 600;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
-        }
-        .hero h1 i {
-            color: #eab308;
-            font-size: 3rem;
-        }
-        .hero p {
-            color: #5e5e64;
-            max-width: 500px;
-            margin-top: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .store-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 2rem 5% 4rem;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 32px;
-            padding: 2rem 1.8rem;
-            box-shadow: 0 20px 30px -15px rgba(0,0,0,0.05);
-            transition: all 0.2s ease;
-            border: 1px solid rgba(0,0,0,0.02);
-            backdrop-filter: blur(2px);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-        .product-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 30px 40px -18px rgba(0,0,0,0.15);
-            border-color: rgba(234,179,8,0.15);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 160px;
-            background: #f1f3f6;
-            border-radius: 24px;
-            margin-bottom: 1.6rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.8rem;
-            color: #2d2d2f;
-            transition: 0.15s;
-            object-fit: cover;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        .product-category {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            color: #888;
-        }
-        .product-title {
-            font-size: 1.7rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin: 0.2rem 0 0.5rem;
-        }
-        .product-desc {
-            color: #5e5e64;
-            font-size: 0.95rem;
-            margin-bottom: 1.6rem;
-        }
-        .price-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: auto;
-            border-top: 1px solid #efefef;
-            padding-top: 1.5rem;
-        }
-        .price {
-            font-size: 2rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-        }
-        .price small {
-            font-size: 0.9rem;
-            font-weight: 400;
-            color: #777;
-        }
-        .buy-btn {
-            background: #1d1d1f;
-            border: none;
-            color: white;
-            padding: 0.8rem 1.8rem;
-            border-radius: 40px;
-            font-weight: 500;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.15s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid #3a3a3c;
-        }
-        .buy-btn:hover {
-            background: #2d2d2f;
-            gap: 12px;
-        }
-
-        .featured-badge {
-            background: #eab308;
-            color: black;
-            padding: 0.3rem 0.8rem;
-            border-radius: 100px;
-            font-weight: 600;
-            font-size: 0.8rem;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-        }
-
-        footer {
-            background: white;
-            padding: 2.5rem 5%;
-            border-radius: 42px 42px 0 0;
-            margin-top: 3rem;
-            color: #5e5e64;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            border-top: 1px solid #eee;
-        }
-
-        /* responsiveness */
-        @media (max-width: 680px) {
-            .hero h1 { font-size: 2.2rem; }
-        }
-
-        /* photo credit */
-        .photo-credit {
-            font-size: 0.8rem;
-            color: #bbb;
         }
     </style>
 </head>
 <body>
-    <!-- admin controller toggle (only visible for you) -->
-    <div id="admin-toggle" title="SENSAI ADMIN PANEL"><i class="fas fa-crown"></i></div>
 
-    <!-- draggable admin panel — control everything -->
-    <div id="admin-panel" class="admin-panel">
-        <div class="drag-handle" id="drag-handle"><i class="fas fa-arrows-alt"></i> MOVE</div>
-        <h3><i class="fas fa-dragon"></i> SENSAI<span style="color:#eab308;">CTRL</span></h3>
-        <p style="color:#aaa; margin-bottom: 24px; font-size:0.9rem;">edit products, prices, images</p>
+<!-- ENTRY ANIMATION - SENSAISTOREMLBB NAME (FIXED - POORA DIKHEGA) -->
+<div class="entry-screen">
+    <div class="entry-text">SENSAI STORE MLBB</div>
+</div>
 
-        <div class="admin-section">
-            <label>📱 EDIT PRODUCT 1 (MLBB)</label>
-            <input type="text" id="prod1-title" placeholder="Title" value="MLBB 1000 diamonds">
-            <textarea id="prod1-desc" placeholder="Description" rows="2">Weekly pass + bonus 30</textarea>
-            <input type="text" id="prod1-price" placeholder="Price (IDR / USD)" value="109.000">
-            <input type="text" id="prod1-img" placeholder="Image emoji / icon" value="🥷">
-            <label style="margin-top: 6px;">🖼️ or image URL (bg)</label>
-            <input type="text" id="prod1-bg" placeholder="Background image URL" value="https://images.unsplash.com/photo-1627854784754-6b7b107c99e5?w=400&h=200&fit=crop&auto=format">
+<!-- ADMIN TRIGGER (5 CLICKS) -->
+<div class="admin-trigger" id="adminTrigger">⚡</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-panel" id="adminPanel">
+    <h3>SENSAI CONTROL</h3>
+    <div class="admin-field">
+        <label>PRODUCT 1 NAME</label>
+        <input type="text" id="prod1Name" value="GOJO SATORU">
+    </div>
+    <div class="admin-field">
+        <label>PRODUCT 1 PRICE (₹)</label>
+        <input type="text" id="prod1Price" value="1599">
+    </div>
+    <div class="admin-field">
+        <label>PRODUCT 1 IMAGE URL</label>
+        <input type="text" id="prod1Img" value="https://via.placeholder.com/400x400?text=GOJO">
+    </div>
+    
+    <div class="admin-field">
+        <label>PRODUCT 2 NAME</label>
+        <input type="text" id="prod2Name" value="SUKUNA">
+    </div>
+    <div class="admin-field">
+        <label>PRODUCT 2 PRICE (₹)</label>
+        <input type="text" id="prod2Price" value="1999">
+    </div>
+    <div class="admin-field">
+        <label>PRODUCT 2 IMAGE URL</label>
+        <input type="text" id="prod2Img" value="https://via.placeholder.com/400x400?text=SUKUNA">
+    </div>
+    
+    <div class="admin-field">
+        <label>PRODUCT 3 NAME</label>
+        <input type="text" id="prod3Name" value="ITADORI YUJI">
+    </div>
+    <div class="admin-field">
+        <label>PRODUCT 3 PRICE (₹)</label>
+        <input type="text" id="prod3Price" value="1299">
+    </div>
+    <div class="admin-field">
+        <label>PRODUCT 3 IMAGE URL</label>
+        <input type="text" id="prod3Img" value="https://via.placeholder.com/400x400?text=ITADORI">
+    </div>
+    
+    <button class="admin-btn" id="applyChanges">UPDATE STORE</button>
+    <button class="admin-btn" id="closeAdmin" style="background:#ddd; color:black;">CLOSE</button>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="logo">SENSAI<span>MLBB</span></div>
+        <div class="nav-links">
+            <span>JJK</span>
+            <span>MLBB</span>
+            <span>FF</span>
+            <span>LIMITED</span>
         </div>
-        <div class="admin-section">
-            <label>🔥 EDIT PRODUCT 2 (FREE FIRE)</label>
-            <input type="text" id="prod2-title" placeholder="Title" value="Free Fire 500 diamonds">
-            <textarea id="prod2-desc" placeholder="Description" rows="2">Elite pass + special skin</textarea>
-            <input type="text" id="prod2-price" placeholder="Price" value="79.900">
-            <input type="text" id="prod2-img" placeholder="Image emoji / icon" value="🔥">
-            <input type="text" id="prod2-bg" placeholder="Background URL" value="https://images.unsplash.com/photo-1612287230202-1ff1d85d1b4f?w=400&h=200&fit=crop&auto=format">
-        </div>
-        <div class="admin-section">
-            <label>⭐ PRODUCT 3 (PREMIUM BUNDLE)</label>
-            <input type="text" id="prod3-title" placeholder="Title" value="MLBB + FF bundle">
-            <textarea id="prod3-desc" placeholder="Description" rows="2">2000 dias + 1000 FF dias</textarea>
-            <input type="text" id="prod3-price" placeholder="Price" value="299.000">
-            <input type="text" id="prod3-img" placeholder="Image emoji / icon" value="💎">
-            <input type="text" id="prod3-bg" placeholder="Background URL" value="https://images.unsplash.com/photo-1614680376593-902f74cf0d41?w=400&h=200&fit=crop&auto=format">
-        </div>
-        <div class="admin-section">
-            <label>🖼️ GLOBAL PHOTO / LOGO EDIT</label>
-            <input type="text" id="store-name-input" placeholder="Store name" value="SENSAISTOREMLBB">
-            <button id="apply-global">apply changes to store</button>
-        </div>
-        <button class="admin-close" id="close-admin"><i class="fas-regular fa-xmark"></i> close panel (keep changes)</button>
-        <p class="photo-credit" style="text-align:center; margin-top:12px;">admin: drag panel • all images editable</p>
     </div>
 
-    <!-- PUBLIC STORE - PREMIUM LOOK -->
-    <div class="top-bar">
-        <div class="logo" id="store-logo-display">SENSAISTOREMLBB<span>™</span></div>
-        <div class="nav-icons">
-            <i class="far fa-user"></i>
-            <i class="far fa-heart"></i>
-            <i class="fas fa-bag-shopping"></i>
-        </div>
-    </div>
-
+    <!-- HERO -->
     <div class="hero">
-        <div>
-            <h1><i class="fas fa-bolt"></i> premium<br>game top-up</h1>
-            <p>MLBB, Free Fire & exclusive bundles – instant delivery, 24/7.</p>
-        </div>
-        <div style="font-size: 4rem; background: #eab30820; padding: 1.5rem; border-radius: 50%; color:#eab308;">
-            <i class="fas fa-diamond"></i>
+        <h2>JUJUTSU KAISEN <strong>ELITE COLLECTION</strong></h2>
+    </div>
+
+    <!-- HORIZONTAL SCROLL SECTION 1 -->
+    <div class="horizontal-section">
+        <div class="section-title">— HORIZONTAL · JJK CHARACTERS</div>
+        <div class="scroll-container" id="horizontalScroll1">
+            <div class="card-row" id="jjkRow">
+                <!-- dynamic products -->
+            </div>
         </div>
     </div>
 
-    <!-- product grid injected via javascript (dynamic for admin control) -->
-    <div class="store-grid" id="product-grid">
-        <!-- products will be loaded via javascript -->
+    <!-- HORIZONTAL SCROLL SECTION 2 (MLBB) -->
+    <div class="horizontal-section">
+        <div class="section-title">— MOBILE LEGENDS · DIAMONDS</div>
+        <div class="scroll-container" id="horizontalScroll2">
+            <div class="card-row" id="mlbbRow">
+                <!-- dynamic products -->
+            </div>
+        </div>
     </div>
 
+    <!-- VERTICAL GRID SECTION -->
+    <div class="vertical-section">
+        <div class="section-title">— VERTICAL · PREMIUM BUNDLES</div>
+        <div class="grid-2" id="verticalGrid">
+            <!-- dynamic products -->
+        </div>
+    </div>
+
+    <!-- FOOTER -->
     <footer>
-        <div><strong>SENSAISTOREMLBB</strong> © 2025 · game diamond retailer</div>
-        <div><i class="fab fa-whatsapp"></i> +62 812 3456 7890  |  <i class="fab fa-instagram"></i> @sensaistore</div>
+        <div>SENSAISTOREMLBB © 2026</div>
+        <div>⚡ INSTANT DELIVERY · 24/7</div>
     </footer>
+</div>
 
-    <script>
-        (function() {
-            // ---------- product data (initial, matches admin fields) ----------
-            let products = [
-                {
-                    title: "MLBB 1000 diamonds",
-                    desc: "Weekly pass + bonus 30",
-                    price: "109.000",
-                    icon: "🥷",
-                    bg: "https://images.unsplash.com/photo-1627854784754-6b7b107c99e5?w=400&h=200&fit=crop&auto=format",
-                    cat: "MLBB"
-                },
-                {
-                    title: "Free Fire 500 diamonds",
-                    desc: "Elite pass + special skin",
-                    price: "79.900",
-                    icon: "🔥",
-                    bg: "https://images.unsplash.com/photo-1612287230202-1ff1d85d1b4f?w=400&h=200&fit=crop&auto=format",
-                    cat: "FREE FIRE"
-                },
-                {
-                    title: "MLBB + FF bundle",
-                    desc: "2000 dias + 1000 FF dias",
-                    price: "299.000",
-                    icon: "💎",
-                    bg: "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?w=400&h=200&fit=crop&auto=format",
-                    cat: "BUNDLE"
-                }
-            ];
+<script>
+    (function() {
+        // ===== PRODUCT DATA =====
+        let jjkProducts = [
+            { name: "GOJO SATORU", price: "1599", img: "https://via.placeholder.com/400x400?text=GOJO+SATURU", cat: "LIMITED" },
+            { name: "SUKUNA", price: "1999", img: "https://via.placeholder.com/400x400?text=SUKUNA", cat: "ELITE" },
+            { name: "ITADORI", price: "1299", img: "https://via.placeholder.com/400x400?text=ITADORI", cat: "ORIGINAL" },
+            { name: "FUSHIGURO", price: "1399", img: "https://via.placeholder.com/400x400?text=FUSHIGURO", cat: "JJK" },
+            { name: "KUGISAKI", price: "1499", img: "https://via.placeholder.com/400x400?text=KUGISAKI", cat: "JJK" }
+        ];
 
-            // references to DOM elements
-            const grid = document.getElementById('product-grid');
-            const storeLogo = document.getElementById('store-logo-display');
-            const adminToggle = document.getElementById('admin-toggle');
-            const adminPanel = document.getElementById('admin-panel');
-            const closeAdmin = document.getElementById('close-admin');
-            const dragHandle = document.getElementById('drag-handle');
+        let mlbbProducts = [
+            { name: "MLBB 1000", price: "1099", img: "https://via.placeholder.com/400x400?text=MLBB+1000", cat: "WEEKLY" },
+            { name: "MLBB 2000", price: "1999", img: "https://via.placeholder.com/400x400?text=MLBB+2000", cat: "BONUS" },
+            { name: "MLBB 5000", price: "4599", img: "https://via.placeholder.com/400x400?text=MLBB+5000", cat: "ELITE" }
+        ];
 
-            // admin input fields
-            const prod1Title = document.getElementById('prod1-title');
-            const prod1Desc = document.getElementById('prod1-desc');
-            const prod1Price = document.getElementById('prod1-price');
-            const prod1Icon = document.getElementById('prod1-img');
-            const prod1Bg = document.getElementById('prod1-bg');
+        let bundleProducts = [
+            { name: "GOJO BUNDLE", price: "2999", img: "https://via.placeholder.com/400x400?text=GOJO+BUNDLE", cat: "LIMITED" },
+            { name: "SUKUNA BUNDLE", price: "3999", img: "https://via.placeholder.com/400x400?text=SUKUNA+BUNDLE", cat: "ELITE" }
+        ];
 
-            const prod2Title = document.getElementById('prod2-title');
-            const prod2Desc = document.getElementById('prod2-desc');
-            const prod2Price = document.getElementById('prod2-price');
-            const prod2Icon = document.getElementById('prod2-img');
-            const prod2Bg = document.getElementById('prod2-bg');
+        // DOM elements
+        const jjkRow = document.getElementById('jjkRow');
+        const mlbbRow = document.getElementById('mlbbRow');
+        const verticalGrid = document.getElementById('verticalGrid');
 
-            const prod3Title = document.getElementById('prod3-title');
-            const prod3Desc = document.getElementById('prod3-desc');
-            const prod3Price = document.getElementById('prod3-price');
-            const prod3Icon = document.getElementById('prod3-img');
-            const prod3Bg = document.getElementById('prod3-bg');
+        // Admin inputs
+        const prod1Name = document.getElementById('prod1Name');
+        const prod1Price = document.getElementById('prod1Price');
+        const prod1Img = document.getElementById('prod1Img');
+        const prod2Name = document.getElementById('prod2Name');
+        const prod2Price = document.getElementById('prod2Price');
+        const prod2Img = document.getElementById('prod2Img');
+        const prod3Name = document.getElementById('prod3Name');
+        const prod3Price = document.getElementById('prod3Price');
+        const prod3Img = document.getElementById('prod3Img');
+        
+        const adminPanel = document.getElementById('adminPanel');
+        const adminTrigger = document.getElementById('adminTrigger');
+        const closeAdmin = document.getElementById('closeAdmin');
+        const applyBtn = document.getElementById('applyChanges');
 
-            const storeNameInput = document.getElementById('store-name-input');
-            const applyBtn = document.getElementById('apply-global');
-
-            // helper to render store from products array
-            function renderStore() {
-                let htmlStr = '';
-                products.forEach((p, idx) => {
-                    htmlStr += `
-                        <div class="product-card">
-                            ${idx === 1 ? '<div class="featured-badge">BESTSELLER</div>' : ''}
-                            <div class="product-image" style="background-image: url(\'${p.bg}\'); background-size: cover; background-position: center; font-size: 0; text-indent: -9999px;" title="${p.icon}">
-                                <span style="opacity:0;">${p.icon}</span>
-                            </div>
-                            <div class="product-category">${p.cat || (idx===0?'MLBB':idx===1?'FREE FIRE':'BUNDLE')}</div>
-                            <div class="product-title">${p.title}</div>
-                            <div class="product-desc">${p.desc}</div>
-                            <div class="price-row">
-                                <div class="price">$${p.price}<small> IDR</small></div>
-                                <button class="buy-btn" onclick="buyProduct(\'${p.title}\')"><i class="fas fa-bolt"></i> top up</button>
-                            </div>
+        // Render functions
+        function renderJJK() {
+            let html = '';
+            jjkProducts.forEach(p => {
+                html += `
+                    <div class="product-card">
+                        <div class="card-image" style="background-image: url('${p.img}')"></div>
+                        <div class="card-info">
+                            <div class="card-category">${p.cat}</div>
+                            <div class="card-name">${p.name}</div>
+                            <div class="card-price">₹${p.price}</div>
+                            <button class="buy-button" onclick="buyItem('${p.name}')">PURCHASE</button>
                         </div>
-                    `;
-                });
-                
-                // ✅ FIXED: This line was missing!
-                grid.innerHTML = htmlStr;
-            }
+                    </div>
+                `;
+            });
+            jjkRow.innerHTML = html;
+        }
 
-            // buy function (simulated)
-            window.buyProduct = (title) => {
-                alert(`🛒 SENSAI STORE: ${title} added to cart (demo).`);
-            };
+        function renderMLBB() {
+            let html = '';
+            mlbbProducts.forEach(p => {
+                html += `
+                    <div class="product-card">
+                        <div class="card-image" style="background-image: url('${p.img}')"></div>
+                        <div class="card-info">
+                            <div class="card-category">${p.cat}</div>
+                            <div class="card-name">${p.name}</div>
+                            <div class="card-price">₹${p.price}</div>
+                            <button class="buy-button" onclick="buyItem('${p.name}')">PURCHASE</button>
+                        </div>
+                    </div>
+                `;
+            });
+            mlbbRow.innerHTML = html;
+        }
 
-            // sync admin fields from products array
-            function syncAdminFields() {
-                prod1Title.value = products[0].title;
-                prod1Desc.value = products[0].desc;
-                prod1Price.value = products[0].price;
-                prod1Icon.value = products[0].icon;
-                prod1Bg.value = products[0].bg;
+        function renderBundles() {
+            let html = '';
+            bundleProducts.forEach(p => {
+                html += `
+                    <div class="feature-card">
+                        <div class="card-image" style="height:200px; background-image: url('${p.img}'); background-size:cover;"></div>
+                        <div class="card-info">
+                            <div class="card-category">${p.cat}</div>
+                            <div class="card-name">${p.name}</div>
+                            <div class="card-price">₹${p.price}</div>
+                            <button class="buy-button" onclick="buyItem('${p.name}')">PURCHASE</button>
+                        </div>
+                    </div>
+                `;
+            });
+            verticalGrid.innerHTML = html;
+        }
 
-                prod2Title.value = products[1].title;
-                prod2Desc.value = products[1].desc;
-                prod2Price.value = products[1].price;
-                prod2Icon.value = products[1].icon;
-                prod2Bg.value = products[1].bg;
+        window.buyItem = (name) => {
+            alert(`✅ ${name} added. WhatsApp +62 812 3456 7890`);
+        };
 
-                prod3Title.value = products[2].title;
-                prod3Desc.value = products[2].desc;
-                prod3Price.value = products[2].price;
-                prod3Icon.value = products[2].icon;
-                prod3Bg.value = products[2].bg;
+        // Admin functions
+        function syncAdmin() {
+            prod1Name.value = jjkProducts[0].name;
+            prod1Price.value = jjkProducts[0].price;
+            prod1Img.value = jjkProducts[0].img;
+            prod2Name.value = jjkProducts[1].name;
+            prod2Price.value = jjkProducts[1].price;
+            prod2Img.value = jjkProducts[1].img;
+            prod3Name.value = jjkProducts[2].name;
+            prod3Price.value = jjkProducts[2].price;
+            prod3Img.value = jjkProducts[2].img;
+        }
 
-                storeNameInput.value = storeLogo.innerText.replace('™', '').trim() || 'SENSAISTOREMLBB';
-            }
+        function updateStore() {
+            jjkProducts[0] = { name: prod1Name.value, price: prod1Price.value, img: prod1Img.value, cat: "LIMITED" };
+            jjkProducts[1] = { name: prod2Name.value, price: prod2Price.value, img: prod2Img.value, cat: "ELITE" };
+            jjkProducts[2] = { name: prod3Name.value, price: prod3Price.value, img: prod3Img.value, cat: "JJK" };
+            renderJJK();
+            adminPanel.classList.remove('show');
+        }
 
-            // update products array from admin fields, then render
-            function updateProductsFromAdmin() {
-                products[0] = {
-                    title: prod1Title.value,
-                    desc: prod1Desc.value,
-                    price: prod1Price.value,
-                    icon: prod1Icon.value,
-                    bg: prod1Bg.value,
-                    cat: 'MLBB'
-                };
-                products[1] = {
-                    title: prod2Title.value,
-                    desc: prod2Desc.value,
-                    price: prod2Price.value,
-                    icon: prod2Icon.value,
-                    bg: prod2Bg.value,
-                    cat: 'FREE FIRE'
-                };
-                products[2] = {
-                    title: prod3Title.value,
-                    desc: prod3Desc.value,
-                    price: prod3Price.value,
-                    icon: prod3Icon.value,
-                    bg: prod3Bg.value,
-                    cat: 'BUNDLE'
-                };
-                // update store name
-                if (storeNameInput.value.trim() !== '') {
-                    storeLogo.innerText = storeNameInput.value.trim() + '™';
-                } else {
-                    storeLogo.innerText = 'SENSAISTOREMLBB™';
-                }
-                renderStore();
-            }
-
-            // load initial render
-            renderStore();
-            syncAdminFields();
-
-            // admin toggle
-            adminToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
+        // Admin trigger - 5 clicks
+        let clickCount = 0;
+        adminTrigger.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount >= 5) {
                 adminPanel.classList.toggle('show');
-            });
+                syncAdmin();
+                clickCount = 0;
+            }
+            setTimeout(() => clickCount = 0, 2000);
+        });
 
-            closeAdmin.addEventListener('click', () => {
-                adminPanel.classList.remove('show');
-            });
+        closeAdmin.addEventListener('click', () => adminPanel.classList.remove('show'));
+        applyBtn.addEventListener('click', updateStore);
 
-            // apply changes button
-            applyBtn.addEventListener('click', () => {
-                updateProductsFromAdmin();
-                adminPanel.classList.remove('show');
-            });
+        // Initial render
+        renderJJK();
+        renderMLBB();
+        renderBundles();
+    })();
+</script>
 
-            // draggable panel
-            let isDragging = false;
-            let offsetX, offsetY;
-
-            dragHandle.addEventListener('mousedown', (e) => {
-                isDragging = true;
-                offsetX = e.clientX - adminPanel.getBoundingClientRect().left;
-                offsetY = e.clientY - adminPanel.getBoundingClientRect().top;
-                adminPanel.style.cursor = 'grabbing';
-            });
-
-            window.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                e.preventDefault();
-                const left = e.clientX - offsetX;
-                const top = e.clientY - offsetY;
-                adminPanel.style.left = left + 'px';
-                adminPanel.style.right = 'auto';
-                adminPanel.style.top = top + 'px';
-            });
-
-            window.addEventListener('mouseup', () => {
-                isDragging = false;
-                adminPanel.style.cursor = 'default';
-            });
-
-            console.log('SENSAI admin ready — you control the web.');
-        })();
-    </script>
+<!-- Google verification meta tag yahan add karo -->
 </body>
 </html>
